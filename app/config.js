@@ -3,6 +3,13 @@ export const celula = {
   nome: "Aviv",
   igreja: "Igreja Vide",
   slogan: "Família que vive a graça.",
+  significado: {
+    hebraico: "אביב",
+    traducao: "primavera",
+    // Texto explicando o significado. Deixe vazio para não exibir.
+    texto:
+      "Para nós, a primavera marca o fim do inverno. As sementes que ficaram congeladas começam a germinar.\n\nVivemos um tempo de muita germinação e colheita. Vivemos a primavera. Vivemos Aviv!",
+  },
   sobre: [
     "Jovens que vivem a vida de célula como uma verdadeira família!",
     "Compartilhando a respeito de Jesus e de sua graça!",

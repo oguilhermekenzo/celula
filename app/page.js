@@ -27,7 +27,7 @@ function Titulo({ children }) {
 }
 
 export default function Home() {
-  const { encontro } = celula;
+  const { encontro, significado } = celula;
 
   return (
     <main className="bg-neutral-950 text-neutral-100">
@@ -41,6 +41,21 @@ export default function Home() {
         </h1>
         <p className="mt-6 text-lg text-neutral-400 sm:text-xl">{celula.slogan}</p>
         <BotaoWhats className="mt-12">Quero participar</BotaoWhats>
+      </section>
+
+      {/* Significado */}
+      <section className="mx-auto max-w-2xl px-6 py-24 text-center">
+        <Titulo>O significado</Titulo>
+        <p lang="he" dir="rtl" className="mt-8 text-7xl font-semibold sm:text-8xl">
+          {significado.hebraico}
+        </p>
+        <p className="mt-6 text-2xl text-neutral-300 sm:text-3xl">
+          Aviv, em hebraico, significa{" "}
+          <span className="text-white">&ldquo;{significado.traducao}&rdquo;</span>.
+        </p>
+        {significado.texto && (
+          <p className="mt-8 whitespace-pre-line text-lg leading-relaxed text-neutral-400">{significado.texto}</p>
+        )}
       </section>
 
       {/* Sobre */}
