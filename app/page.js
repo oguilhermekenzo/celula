@@ -1,69 +1,107 @@
 import Image from "next/image";
+import { celula } from "./config";
+
+const wa = `https://wa.me/${celula.whatsapp}?text=${encodeURIComponent(
+  celula.mensagemWhatsapp
+)}`;
+
+function BotaoWhats({ className = "", children }) {
+  return (
+    <a
+      href={wa}
+      target="_blank"
+      rel="noopener noreferrer"
+      className={`inline-block rounded-full bg-white px-7 py-3.5 text-base font-medium text-neutral-950 transition hover:bg-neutral-300 ${className}`}
+    >
+      {children}
+    </a>
+  );
+}
+
+function Titulo({ children }) {
+  return (
+    <h2 className="text-xs font-medium uppercase tracking-[0.3em] text-neutral-500">
+      {children}
+    </h2>
+  );
+}
 
 export default function Home() {
+  const { encontro } = celula;
+
   return (
-    <div className="flex flex-col flex-1 items-center justify-center bg-zinc-50 font-sans dark:bg-black">
-      <main className="flex flex-1 w-full max-w-3xl flex-col items-center justify-between py-32 px-16 bg-white dark:bg-black sm:items-start">
-        <Image
-          className="dark:invert h-5 w-[100px]"
-          src="/next.svg"
-          alt="Next.js logo"
-          width={100}
-          height={20}
-          priority
-        />
-        <div className="flex flex-col items-center gap-6 text-center sm:items-start sm:text-left">
-          <h1 className="max-w-xs text-3xl font-semibold leading-10 tracking-tight text-black dark:text-zinc-50">
-            To get started, edit the{" "}
-            <code className="rounded bg-black/[.06] px-1.5 py-0.5 font-mono text-[0.9em] dark:bg-white/[.08]">
-              page.js
-            </code>{" "}
-            file.
-          </h1>
-          <p className="max-w-md text-lg leading-8 text-zinc-600 dark:text-zinc-400">
-            Looking for a starting point or more instructions? Head over to{" "}
-            <a
-              href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-              className="font-medium text-zinc-950 dark:text-zinc-50"
-            >
-              Templates
-            </a>{" "}
-            or the{" "}
-            <a
-              href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-              className="font-medium text-zinc-950 dark:text-zinc-50"
-            >
-              Learning
-            </a>{" "}
-            center.
-          </p>
+    <main className="bg-neutral-950 text-neutral-100">
+      {/* Hero */}
+      <section className="flex min-h-screen flex-col items-center justify-center px-6 text-center">
+        <p className="text-xs font-medium uppercase tracking-[0.3em] text-neutral-500">
+          {celula.igreja}
+        </p>
+        <h1 className="mt-6 text-7xl font-semibold tracking-tight sm:text-9xl">
+          {celula.nome}
+        </h1>
+        <p className="mt-6 text-lg text-neutral-400 sm:text-xl">{celula.slogan}</p>
+        <BotaoWhats className="mt-12">Quero participar</BotaoWhats>
+      </section>
+
+      {/* Sobre */}
+      <section className="mx-auto max-w-2xl px-6 py-24 text-center">
+        <Titulo>Quem somos</Titulo>
+        <div className="mt-8 space-y-4 text-2xl leading-snug sm:text-3xl">
+          {celula.sobre.map((p) => (
+            <p key={p}>{p}</p>
+          ))}
         </div>
-        <div className="flex flex-col gap-4 text-base font-medium sm:flex-row">
-          <a
-            className="flex h-12 w-full items-center justify-center gap-2 rounded-full bg-foreground px-5 text-background transition-colors hover:bg-[#383838] dark:hover:bg-[#ccc] md:w-[158px]"
-            href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            <Image
-              className="dark:invert h-[14px] w-4"
-              src="/vercel.svg"
-              alt="Vercel logomark"
-              width={16}
-              height={14}
-            />
-            Deploy Now
-          </a>
-          <a
-            className="flex h-12 w-full items-center justify-center rounded-full border border-solid border-black/[.08] px-5 transition-colors hover:border-transparent hover:bg-black/[.04] dark:border-white/[.145] dark:hover:bg-[#1a1a1a] md:w-[158px]"
-            href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Documentation
-          </a>
+      </section>
+
+      {/* Encontro */}
+      <section className="mx-auto max-w-3xl px-6 py-24">
+        <Titulo>Encontro</Titulo>
+        <dl className="mt-8 divide-y divide-neutral-800 border-y border-neutral-800">
+          {[
+            ["Dia", encontro.dia],
+            ["Horário", encontro.horario],
+            ["Local", encontro.local],
+          ].map(([k, v]) => (
+            <div key={k} className="flex flex-col gap-1 py-5 sm:flex-row sm:gap-8">
+              <dt className="w-28 shrink-0 text-neutral-500">{k}</dt>
+              <dd className="text-lg">{v}</dd>
+            </div>
+          ))}
+        </dl>
+      </section>
+
+      {/* Galeria */}
+      <section className="mx-auto max-w-4xl px-6 py-24">
+        <Titulo>Momentos</Titulo>
+        <div className="mt-8 grid grid-cols-1 gap-4 sm:grid-cols-3 sm:gap-2">
+          {celula.fotos.map((src, i) => (
+            <div key={i} className="relative aspect-[4/3] overflow-hidden rounded-xl sm:aspect-square sm:rounded-lg bg-neutral-900">
+              {src && (
+                <Image
+                  src={src}
+                  alt={`Foto ${i + 1} da célula`}
+                  fill
+                  sizes="(min-width: 896px) 600px, 100vw"
+                  quality={90}
+                  className="object-cover"
+                />
+              )}
+            </div>
+          ))}
         </div>
-      </main>
-    </div>
+      </section>
+
+      {/* CTA final */}
+      <section className="px-6 py-32 text-center">
+        <p className="text-3xl font-semibold tracking-tight sm:text-5xl">
+          Venha nos conhecer.
+        </p>
+        <BotaoWhats className="mt-10">Chamar no WhatsApp</BotaoWhats>
+      </section>
+
+      <footer className="px-6 py-8 text-center text-xs text-neutral-600">
+        {celula.nome} · {celula.igreja}
+      </footer>
+    </main>
   );
 }
